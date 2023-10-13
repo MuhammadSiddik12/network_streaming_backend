@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose
-	.connect(
-		"mongodb+srv://MuhammadSiddik:Siddik1234@cluster0.ylizv0y.mongodb.net/stream_screen"
-	)
+	.connect(process.env.URI)
 	.then(() => {
 		console.log("Database connected");
 	})

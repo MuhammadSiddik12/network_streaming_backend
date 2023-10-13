@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
 				.json({ success: false, message: "Please provide valid email" });
 		}
 
-		const passHash = await bcrypt.hash(password, 12);
+		const passHash = await bcrypt.hash(password, process.env.SALT);
 		const createUser = await Users.create({
 			email,
 			name,
@@ -38,7 +38,6 @@ exports.register = async (req, res) => {
 			.status(500)
 			.json({ success: false, message: "Something went wrong" });
 	} catch (error) {
-		console.log("🚀 ~ file: users.js:46 ~ exports.register= ~ error:", error);
 		return res
 			.status(500)
 			.json({ success: false, message: "Something went wrong" });
@@ -49,9 +48,7 @@ exports.login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
 
-		const pattern = new RegExp(
-			"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
-		);
+		const pattern = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 		if (!pattern.test(email)) {
 			return res
