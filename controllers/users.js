@@ -41,11 +41,12 @@ exports.register = async (req, res) => {
 				token: createJwtToken,
 			});
 		}
-
+		console.log("check");
 		return res
 			.status(500)
 			.json({ success: false, message: "Something went wrong" });
 	} catch (error) {
+		console.log("🚀 ~ file: users.js:49 ~ exports.register= ~ error:", error);
 		return res
 			.status(500)
 			.json({ success: false, message: "Something went wrong" });
