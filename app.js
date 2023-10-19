@@ -5,7 +5,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+const cors = require("cors");
 var Users = require("./models/users");
 
 var indexRouter = require("./routes/index");
@@ -17,6 +17,14 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
+app.use(
+	cors({
+		origin: "*",
+		methods: ["GET, PUT", "POST", "DELETE"],
+		preflightContinue: false,
+		optionsSuccessStatus: 200,
+	})
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
