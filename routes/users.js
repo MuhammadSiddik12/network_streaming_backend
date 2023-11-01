@@ -5,7 +5,7 @@ const { check } = require("express-validator");
 const requestChecker = require("../utils/requestChecker");
 
 router.get("/", function (req, res, next) {
-	res.send("respond from Home");
+	res.send("Respond from Home");
 });
 
 router.post(
