@@ -14,6 +14,14 @@ const Users = mongoose.Schema(
 			type: String,
 			require: true,
 		},
+		isActive: {
+			type: Boolean,
+			default: true,
+		},
+		isDeleted: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamp: true }
 );
