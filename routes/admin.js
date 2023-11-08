@@ -18,4 +18,14 @@ router.post(
 	adminController.registerAdmin
 );
 
+router.post(
+	"/adminLogin",
+	[
+		check("email").notEmpty().withMessage("Please provide email"),
+		check("password").notEmpty().withMessage("Please provide password"),
+	],
+	requestChecker,
+	adminController.adminLogin
+);
+
 module.exports = router;
