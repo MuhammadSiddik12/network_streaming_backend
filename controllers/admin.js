@@ -1,9 +1,10 @@
 const admin = require("../models/admin");
+const bcrypt = require("bcrypt");
 
-exports.registerAdmin = (req, res) => {
+exports.registerAdmin = async (req, res) => {
 	try {
 		const { email, password, name } = req.body;
-		const findAdminExist = admin.findOne({ email });
+		const findAdminExist = await admin.findOne({ email });
 
 		if (findAdminExist) {
 			return res
@@ -11,10 +12,12 @@ exports.registerAdmin = (req, res) => {
 				.json({ success: false, message: "Email already exist" });
 		}
 
-		const createAdmin = admin.create({
+		const createPass = await bcrypt.hash(password.trim(), 12);
+
+		const createAdmin = await admin.create({
 			name,
 			email: email.trim(),
-			password,
+			password: createPass,
 		});
 
 		if (createAdmin) {
